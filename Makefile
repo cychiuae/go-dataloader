@@ -1,7 +1,3 @@
-.PHONY: build
-build:
-	go build
-
-.PHONY: dev
-dev:
-	go run main.go
+.PHONY: test
+test:
+	go test -v ./...
