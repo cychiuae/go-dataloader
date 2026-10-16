@@ -5,7 +5,7 @@ but using golang generic instead of code generation
 
 ## Requirements
 
-- Golang 1.18
+- Golang 1.26
 
 ## Installation
 

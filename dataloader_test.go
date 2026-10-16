@@ -23,14 +23,16 @@ func TestDataLoader(t *testing.T) {
 		Wait:     10 * time.Millisecond,
 	})
 	if integerDataLoader == nil {
-		t.Fatal("Fail to create a dataloader")
+		t.Error("Fail to create a dataloader")
+		return
 	}
 	numberZero, err := integerDataLoader.Load("0")
 	if numberZero != 0 {
 		t.Fatalf("Loader returns wrong number %d", numberZero)
 	}
 	if err != nil {
-		t.Fatal("Loader returns err")
+		t.Error("Loader returns err")
+		return
 	}
 
 	numberOne, err := integerDataLoader.Load("1")
@@ -38,10 +40,12 @@ func TestDataLoader(t *testing.T) {
 		t.Fatalf("Loader returns wrong number %d", numberOne)
 	}
 	if err != nil {
-		t.Fatal("Loader returns err")
+		t.Error("Loader returns err")
+		return
 	}
 	if cacheSize := len(integerDataLoader.cache); cacheSize != 2 {
-		t.Fatal("Loader has wrong cache size")
+		t.Error("Loader has wrong cache size")
+		return
 	}
 }
 
@@ -83,15 +87,18 @@ func TestModelDataLoader(t *testing.T) {
 			defer wg.Done()
 			user, err := userDataLoader.Load(userID)
 			if err != nil {
-				t.Fatal("Loader err")
+				t.Error("Loader err")
+				return
 			}
 			if userID == "missing" {
 				if user != nil {
-					t.Fatal("Expect nil User")
+					t.Error("Expect nil User")
+					return
 				}
 			} else {
 				if userID != user.ID {
-					t.Fatal("Wrong user ID")
+					t.Error("Wrong user ID")
+					return
 				}
 			}
 		}()
