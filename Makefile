@@ -1,3 +1,8 @@
-.PHONY: test
+.PHONY: check vet test
+check: vet test
+
+vet:
+	go vet ./...
+
 test:
-	go test -v ./...
+	go test -race -v ./...
